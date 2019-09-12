@@ -186,7 +186,7 @@ class DateInput extends React.Component {
             inputMode={inputMode}
           />
         </div>
-        {props.showClear ? (
+        {props.showClear && str ? (
           <a
             role="button"
             title={locale.clear}
