@@ -30,6 +30,8 @@ export default class CalendarPart extends React.Component {
     inputMode: PropTypes.string,
   }
 
+  onClear = () => {this.props.onClear && this.props.onClear(this.props.direction)}
+
   render() {
     const props = this.props;
     const {
@@ -81,6 +83,7 @@ export default class CalendarPart extends React.Component {
         placeholder={placeholder}
         disabledTime={disabledTime}
         value={value}
+        onClear={this.onClear}
         showClear={showClear || false}
         selectedValue={selectedValue[index]}
         onChange={onInputChange}
