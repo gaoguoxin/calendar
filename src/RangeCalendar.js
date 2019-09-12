@@ -612,9 +612,13 @@ class RangeCalendar extends React.Component {
     props.onHoverChange(hoverValue);
   }
 
-  clear = () => {
-    this.fireSelectValueChange([], true);
-    this.props.onClear();
+  clear = (direction) => {
+    if(direction === 'left') {
+      this.fireSelectValueChange([null, this.state.selectedValue[1]]);
+    } else {
+      this.fireSelectValueChange([this.state.selectedValue[0],null]);
+    }
+    this.props.onClear && this.props.onClear(direction);
   }
 
   disabledStartTime = (time) => {
@@ -639,7 +643,7 @@ class RangeCalendar extends React.Component {
     const { props, state } = this;
     const {
       prefixCls, dateInputPlaceholder, seperator,
-      timePicker, showOk, locale, showClear,
+      timePicker, showOk, locale,
       showToday, type, clearIcon,
     } = props;
     const {
@@ -660,6 +664,7 @@ class RangeCalendar extends React.Component {
     const newProps = {
       selectedValue: state.selectedValue,
       onSelect: this.onSelect,
+      onClear:this.clear,
       onDayHover: type === 'start' && selectedValue[1] ||
         type === 'end' && selectedValue[0] || !!hoverValue.length ?
         this.onDayHover : undefined,
@@ -706,14 +711,6 @@ class RangeCalendar extends React.Component {
       >
         {props.renderSidebar()}
         <div className={`${prefixCls}-panel`}>
-          {showClear && selectedValue[0] && selectedValue[1] ?
-            <a
-              role="button"
-              title={locale.clear}
-              onClick={this.clear}
-            >
-              {clearIcon || <span className={`${prefixCls}-clear-btn`} />}
-            </a> : null}
           <div
             className={`${prefixCls}-date-panel`}
             onMouseLeave={type !== 'both' ? this.onDatePanelLeave : undefined}

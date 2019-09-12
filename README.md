@@ -375,7 +375,7 @@ http://react-component.github.io/calendar/examples/index.html
         </tr>
         <tr>
           <td>onClear</td>
-          <td>Function()</td>
+          <td>Function(direction)</td>
           <td></td>
           <td>called when a date range is cleared from calendar</td>
         </tr>
