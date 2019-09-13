@@ -358,7 +358,7 @@ class RangeCalendar extends React.Component {
   onOk = () => {
     const { selectedValue } = this.state;
     if (this.isAllowedDateAndTime(selectedValue)) {
-      this.props.onOk(this.state.selectedValue);
+      this.props.onOk && this.props.onOk(this.state.selectedValue);
     }
   }
 
