@@ -543,6 +543,14 @@ class RangeCalendar extends React.Component {
     return !!selectedValue[1] && !!selectedValue[0];
   }
 
+  setSelectedValue = (selectedValue) => {
+    if (!('selectedValue' in this.props)) {
+      this.setState({
+        selectedValue,
+      });
+    }
+  }
+
   compare = (v1, v2) => {
     if (this.props.timePicker) {
       return v1.diff(v2);
@@ -563,18 +571,14 @@ class RangeCalendar extends React.Component {
       }
     }
 
-    if (!('selectedValue' in this.props)) {
-      this.setState({
-        selectedValue,
-      });
-    }
+    this.setSelectedValue(selectedValue)
 
     // 尚未选择过时间，直接输入的话
     if (!this.state.selectedValue[0] || !this.state.selectedValue[1]) {
       const startValue = selectedValue[0] || moment();
       const endValue = selectedValue[1] || startValue.clone().add(1, 'months');
+      this.setSelectedValue(selectedValue);
       this.setState({
-        selectedValue,
         value: getValueFromSelectedValue([startValue, endValue]),
       });
     }
