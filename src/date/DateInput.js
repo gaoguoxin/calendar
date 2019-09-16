@@ -68,7 +68,7 @@ class DateInput extends React.Component {
     }
 
     // 不合法直接退出
-    const parsed = moment(str, format, true);
+    const parsed = moment(str);
     if (!parsed.isValid()) {
       this.setState({
         invalid: true,
